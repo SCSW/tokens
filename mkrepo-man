@@ -1,0 +1,14 @@
+#!/bin/bash
+echo "Please enter your email address"
+read EMAIL
+echo "Please enter your user name"
+read USER
+echo "Please give your project name"
+read PROJECT
+rm -rf .git
+git init
+curl -u "$EMAIL" https://api.github.com/user/repos -d "{\"name\":\"$PROJECT\"}"
+git remote add origin git@github.com:${USER}/${PROJECT}.git
+git add .
+git commit -m "Project creation"
+git push -u origin master
